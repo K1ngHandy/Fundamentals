@@ -7,22 +7,34 @@
 
 import SwiftUI
 
+struct BorderedCaption: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.caption2)
+            .padding(10)
+            .overlay(
+            RoundedRectangle(cornerRadius: 15)
+            .stroke(lineWidth: 1)
+        )
+            .foregroundColor(Color/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+    }
+}
+
 struct ContentView: View {
     var body: some View {
         VStack {
-            Image(systemName: "heart.fill")
+            Image(systemName: "bus")
+                .resizable()
+                .frame(width: 50, height: 50)
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Hello, Internet!")
+            Text("Downtown Bus")
                 .font(.title)
                 .bold()
-                .frame(width: 201)
-                .border(Color.gray)
+                .frame(width: 210)
+                .border(Color.blue)
                 .padding(2)
             Text("Glad to meet you.")
-                .underline()
-                .padding(2)
-            Text("Practicing Swift fundamentals")
         }
         .font(.body)
     }
