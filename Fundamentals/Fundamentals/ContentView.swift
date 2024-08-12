@@ -15,9 +15,12 @@ struct ContentView: View {
                 .foregroundStyle(.tint)
             Text("Hello, Internet!")
                 .font(.title)
+                .frame(width: 201)
+                .border(Color.gray)
                 .padding(2)
             Text("Glad to meet you.")
                 .font(.subheadline)
+                .underline()
         }
     }
 }
