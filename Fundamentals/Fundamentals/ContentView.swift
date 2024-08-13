@@ -13,10 +13,16 @@ struct BorderedCaption: ViewModifier {
             .font(.caption2)
             .padding(10)
             .overlay(
-            RoundedRectangle(cornerRadius: 15)
-            .stroke(lineWidth: 1)
+                RoundedRectangle(cornerRadius: 14)
+                    .stroke(lineWidth: 1.2)
         )
-            .foregroundColor(Color/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+        .foregroundColor(Color.blue)
+    }
+}
+
+extension View {
+    func borderedCaption() -> some View {
+        modifier(BorderedCaption())
     }
 }
 
@@ -26,15 +32,8 @@ struct ContentView: View {
             Image(systemName: "bus")
                 .resizable()
                 .frame(width: 50, height: 50)
-                .imageScale(.large)
-                .foregroundStyle(.tint)
             Text("Downtown Bus")
-                .font(.title)
-                .bold()
-                .frame(width: 210)
-                .border(Color.blue)
-                .padding(2)
-            Text("Glad to meet you.")
+                .borderedCaption()
         }
         .font(.body)
     }
