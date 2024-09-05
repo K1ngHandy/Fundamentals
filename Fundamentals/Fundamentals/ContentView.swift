@@ -8,18 +8,37 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var pets = Pet.samplePets
-    
     var body: some View {
-        List(pets) { pet in
-            HStack {
-                Label("Whiskers", systemImage: "cat.fill")
-                
-                Spacer()
-                
-                Text("Tightrope walking")
-            }
+        VStack {
+            PetRowView(pet: <#T##Pet#>("Buddy", kind: .dog, trick: "Roll over", profileImage: "dogProfile", favoriteColor: .blue))
         }
+    }
+}
+
+struct PetRowView: View {
+    var pet: Pet
+    var body: some View {
+        HStack {
+            profileImage
+            
+            VStack(alignment: .leading) {
+                Text(pet.name)
+                Text(pet.trick)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+            
+            Spacer()
+        }
+    }
+    
+    private var profileImage: some View {
+        Image(pet.profileImage)
+            .clipShape(Circle())
+            .shadow(radius: 3)
+            .overlay {
+                Circle().stroke(pet.favoriteColor, lineWidth: 2)
+            }
     }
 }
 
@@ -36,40 +55,36 @@ struct Pet: Identifiable {
         
         var systemImage: String {
             switch self {
-            case .cat return "cat.fill"
-            case .dog return "dog.fill"
-            case .fish return "fish.fill"
-            case .bird return "bird.fill"
-            case .lizard return "lizard.fill"
-            case .turtle return "tortoise.fill"
-            case .rabbit return "rabbit.fill"
-            case .bug return "ant.fill"
+            case .cat: return "cat.fill"
+            case .dog: return "dog.fill"
+            case .fish: return "fish.fill"
+            case .bird: return "bird.fill"
+            case .lizard: return "lizard.fill"
+            case .turtle: return "tortoise.fill"
+            case .rabbit: return "rabbit.fill"
+            case .bug: return "ant.fill"
             }
         }
     }
     
     let id = UUID()
-    var name: string
-    var kind: kind
+    var name: String
+    var kind: Kind
     var trick: String
+    var profileImage: String
+    var favoriteColor: Color
     
-    init(_ name: String, kind: Kind, trick: String) {
+    init(_ name: String, kind: Kind, trick: String, profileImage: String, favoriteColor: Color) {
         self.name = name
         self.kind = kind
         self.trick = trick
+        self.profileImage = profileImage
+        self.favoriteColor = favoriteColor
     }
-    
-    static let samplePets = [
-        Pet("Whiskers", kind: .cat, trick: "Tightrope walking"),
-        Pet("Roofus", kind: .dog, trick: "Home runs")
-        Pet("Bubbles", kind: .fish, trick: "100m Freestyle")
-        Pet("Mango", kind: .bird, trick: "Basketball dunk")
-        Pet("Ziggy", kind: .lizard, trick: "Parkour")
-        Pet("Sheldon", kind: .turtle, trick: "Kickflip")
-        Pet("Chirpy", kind: .bug, trick: "Canon in D")
-    ]
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
